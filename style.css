@@ -1,0 +1,140 @@
+*,*::after,*::before {
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+}
+:root{
+    --cell-size :100px;
+    --mark-size:calc(var(--cell-size) * .9);
+}
+.board{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: repeat(3,auto);
+    
+}
+
+
+
+.cell{
+    position: relative;
+    border: 2px solid black;
+    width:var(--cell-size) ;
+    height: var(--cell-size);
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    cursor: pointer;
+}
+
+.cell.x,
+.cell.o{
+cursor: not-allowed;
+}
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3){
+    border-top: none;
+}
+
+.cell:nth-child(3n+1){
+    border-left: none;
+}
+.cell:nth-child(3n+3){
+    border-right: none;
+}
+.cell:last-child,
+.cell:nth-child(7),
+.cell:nth-child(8){
+    border-bottom: none;
+}
+
+
+/*  To Fill X in Board  */
+.cell.x::after,
+.cell.x::before,
+.board.x .cell:not(.x):not(.o):hover::after ,
+.board.x .cell:not(.x):not(.o):hover::before{
+
+    content: "";
+    position: absolute;
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+    background-color: black;
+
+}
+.board.x .cell:not(.x):not(.o):hover::after ,
+.board.x .cell:not(.x):not(.o):hover::before{
+    background-color: lightgray;
+}
+.cell.x::after,
+.board.x .cell:hover::after{
+        transform: rotate(45deg);
+}
+.cell.x::before,
+.board.x .cell:hover::before{
+    transform: rotate(-45deg);
+}
+
+
+
+/* To fill O in board  */
+
+.cell.o::after,
+.cell.o::before,
+.board.o .cell:not(.x):not(.o):hover::after,
+.board.o .cell:not(.x):not(.o):hover::before
+{
+    content: "";
+    position: absolute;
+    width: var(--mark-size);
+    height: var(--mark-size);
+    background-color: transparent;
+    border-radius: 50%;
+    border: calc(var(--mark-size) * .15) solid black;
+}
+
+.board.o .cell:not(.x):not(.o):hover::after,
+.board.o .cell:not(.x):not(.o):hover::before{
+   border-color: lightgrey;
+} 
+.winning-message{
+    display: none;
+    position: fixed;
+    top :0;
+    bottom:0;
+    left: 0;
+    right: 0;
+    background-color: rgb(0, 0, 0,.9);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 3em;
+}
+
+#restart-btn{
+    margin-top: 20px;
+padding: 10px 20px;
+border: 1px solid black;
+cursor: pointer;
+
+}
+
+#restart-btn:hover{
+
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+
+}
+.winning-message.show{
+        display: flex;
+
+}
